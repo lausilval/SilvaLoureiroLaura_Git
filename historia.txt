@@ -1,0 +1,72 @@
+# Creamos el repositorio raiz:
+mkdir SilvaLoureiroLaura_Git    
+cd SilvaLoureiroLaura_Git/
+# Inicializamos Git
+git init
+# Creamos la estructura de directorios
+mkdir Proyectos Procesos
+mkdir Proyectos/Prj1
+mkdir Procesos/ControlDeCambios
+# Creamos el archivo para los comandos
+touch historia.txt
+# Añadimos los cambios
+git add .
+# Realizamos el primer commit
+git commit -m "Creada la estructura inicial del repositorio"
+
+# Copiamos la version 1 y las plantillas
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/DP_ControldeCambios_Grupo7-v2.docx Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7.docx
+mkdir Procesos/ControlDeCambios/Plantillas
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_A.docx Procesos/ControlDeCambios/Plantillas/Plantilla_A.docx
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_B.docx Procesos/ControlDeCambios/Plantillas/Plantilla_B.docx
+# Añadimos los cambios
+git add Procesos/ControlDeCambios/* -A
+git commit -m "Version 1 añadida del documento (R1)"
+
+# Creamos la rama de Mejoras y nos cambiamos a ella
+git branch Mejoras
+git checkout Mejoras
+# Añadimos el pdf con las mejoras
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/DP_ControldeCambios_Grupo7-v1_1.pdf Procesos/ControlDeCambios/
+git add Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7-v1_1.pdf
+git commit -m "Incluido el fichero pdf con las propuestas de mejora realizadas por el grupo 1"
+# Actualizamos a la version 2
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/DP_ControldeCambios_Grupo7-v2.docx Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7.docx 
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_C.docx Procesos/ControlDeCambios/Plantillas/Plantilla_C.docx
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_D.docx Procesos/ControlDeCambios/Plantillas/Plantilla_D.docx
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_E.docx Procesos/ControlDeCambios/Plantillas/Plantilla_E.docx
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_F.docx Procesos/ControlDeCambios/Plantillas/Plantilla_F.docx
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_G.docx Procesos/ControlDeCambios/Plantillas/Plantilla_G.docx
+git add Procesos/ControlDeCambios/* -A
+git commit -m "Version 2 ,actualizada con las mejoras propuestas (R2)"
+# Volvemos a la rama master y fusionamos con Mejoras
+git checkout master
+git merge Mejoras -m "Fusionada rama Mejoras con los cambios de la version 2"
+# Eliminamos rama Mejoras
+git branch -d Mejoras
+# Eliminamos el pdf
+git rm Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7-v1_1.pdf
+git commit -m "Eliminado el pdf de las propuestas de mejora tras fusionar las ramas"
+# Etiquetamos la version 2
+git tag -a R2 -m "Version R2 tras eliminar el pdf de mejoras y actualizar el documento a la version2"
+
+# Actualizamos a la version 3
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/DP_ControldeCambios_Grupo7-v3.docx Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7.docx 
+git add Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7.docx
+git commit -m "Subida la version 3 del documento del proceso de control de cambios"
+
+# Volvemos al antepenultimo commit, en este caso a: eliminado el pdf...
+git reset --hard HEAD~1
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/DP_ControldeCambios_Grupo7-v3.docx Procesos/ControlDeCambios/DP_ControldeCambios_Grupo7.docx 
+cp /home/usuario/Escritorio/3º/2_CUATRI/ENSO/Plantillas/Plantilla_H.docx Procesos/ControlDeCambios/Plantillas/Plantilla_H.docx
+git add .
+git commit -m "Actualizado con la versión 3 del documento y plantillas asociadas."
+# Etiquetamos la version 3
+git tag -a R3 -m "Versión R3 con documento y plantillas actualizadas."
+# Añadimos el repositorio de Github
+git remote add origin https://github.com/lausilval/SilvaLoureiroLaura_Git.git
+# Lo subimos todo a remoto
+git push origin master --tags
+
+# Nos aseguramos que la rama esté actualizada
+git checkout master
