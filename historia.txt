@@ -70,3 +70,5 @@ git push origin master --tags
 
 # Nos aseguramos que la rama esté actualizada
 git checkout master
+# Añadimos el comando pull
+git pull origin master
